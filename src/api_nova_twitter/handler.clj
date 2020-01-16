@@ -11,16 +11,18 @@
   (GET "/posts/user/:id_user" [id_user]
     (post/find-all id_user))
 (POST "/posts" req
-  (let [name (get-in req [:body "name"])
-        category (get-in req [:body "category"])]
-    (post/create name category)))
+  (let [texto (get-in req [:body "texto"])
+        id_post_ori (get-in req [:body "id_post_ori"])
+        id_user (get-in req [:body "id_user"])]
+    (post/create texto id_post_ori id_user)))
 (GET "/posts/:id" [id]
   (post/find-by-id id))
 (PUT "/posts/:id" req
   (let [id (read-string (get-in req [:params :id]))
-        name (get-in req [:body "name"])
-        category (get-in req [:body "category"])]
-    (post/update-by-id id name category)
+        texto (get-in req [:body "texto"])
+        id_post_ori (get-in req [:body "id_post_ori"])
+        id_user (get-in req [:body "id_user"])]
+    (post/update-by-id id texto id_post_ori id_user)
     (post/find-by-id id)))
 (DELETE "/posts/:id" [id]
   (post/delete-by-id id)

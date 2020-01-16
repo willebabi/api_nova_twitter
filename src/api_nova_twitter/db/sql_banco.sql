@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS users (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	nome TEXT,
+	email text,
+	senha text,
+	fone text
+	dt_cria DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS seguir_users (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id_user integer,
+	id_user_seguir integer,
+	dt_cria DATETIME DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_user) REFERENCES users(id)
+	FOREIGN KEY(id_user_seguir) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS post (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	texto TEXT,
+	id_post_ori INTEGER,
+	id_user INTEGER,
+	dt_cria DATETIME DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_user) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS post_curtir (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id_post INTEGER,
+	id_user INTEGER,
+	dt_cria DATETIME DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_post) REFERENCES post(id),
+	FOREIGN KEY(id_user) REFERENCES users(id)
+);
